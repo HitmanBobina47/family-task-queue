@@ -9,6 +9,3 @@ def multiply_test():
 
 def divide_test():
     assert 4 / 4 == 1
-
-def power_test():
-    assert 4 ** 4 == 256
