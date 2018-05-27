@@ -22,33 +22,31 @@ class Test_DB():
 
     def test_create_family(self):
         with self.app.app_context():
-            assert len(db.user.Family.query.all()) == 0
+            starting_len = len(db.user.Family.query.all())
             db.user.create_family("This Is A Test")
-            assert len(db.user.Family.query.all()) == 1
+            assert len(db.user.Family.query.all()) == starting_len + 1
             assert db.user.Family.query.first().name == "This Is A Test"
 
     def test_create_user_family_id(self):
         with self.app.app_context():
             db.user.create_family("Mongowski")
-            assert len(db.user.User.query.all()) == 0
+            starting_len = len(db.user.User.query.all())
             db.user.create_user("fatsomcgatso", "password", "ex@amp.le", family_id=1)
-            assert len(db.user.User.query.all()) == 1
+            assert len(db.user.User.query.all()) == starting_len + 1
             first = db.user.User.query.first()
             assert first.username == "fatsomcgatso"
             assert pbkdf2_sha256.verify("password", first.password)
             assert first.email == "ex@amp.le"
-            assert first.family_id == 1
             assert first.family.name == "Mongowski"
 
     def test_create_user_family(self):
         with self.app.app_context():
             db.user.create_family("Mongowski")
-            assert len(db.user.User.query.all()) == 0
+            starting_len = len(db.user.User.query.all())
             db.user.create_user("fatsomcgatso", "password", "ex@amp.le", family=db.user.Family.query.filter_by(name="Mongowski").first())
-            assert len(db.user.User.query.all()) == 1
+            assert len(db.user.User.query.all()) == starting_len + 1
             first = db.user.User.query.first()
             assert first.username == "fatsomcgatso"
             assert pbkdf2_sha256.verify("password", first.password)
             assert first.email == "ex@amp.le"
-            assert first.family_id == 1
             assert first.family.name == "Mongowski"
