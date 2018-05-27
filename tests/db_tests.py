@@ -1,4 +1,4 @@
-from family-task-queue import db
+from family_task_queue import db
 from flask import Flask
 import tempfile
 
