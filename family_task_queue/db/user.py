@@ -25,6 +25,12 @@ def get_family(arg):
     elif isinstance(arg, str):
         return Family.query.filter_by(name=arg).first()
 
+def get_user(arg):
+    if isinstance(arg, int):
+        return User.query.get(arg)
+    elif isinstance(arg, User):
+        return arg
+
 def create_family(name):
     new_family = Family(name=name)
     add_item(new_family)
