@@ -46,6 +46,15 @@ class Test_DB():
             assert len(db.user.Family.query.all()) == starting_len + 1
             assert db.user.Family.query.first().name == "This Is A Test"
 
+    def test_get_family(self):
+        with self.app.app_context():
+            starting_len = len(db.user.Family.query.all())
+            db.user.create_family("This Is A Test")
+            assert len(db.user.Family.query.all()) == starting_len + 1
+            assert db.user.get_family(1).name == "This Is A Test"
+            assert db.user.get_family("This Is A Test").name == "This Is A Test"
+            assert db.user.get_family(db.user.Family.query.first()).name == "This Is A Test"
+
     def test_create_user_family_id(self):
         with self.app.app_context():
             db.user.create_family("Mongowski")
