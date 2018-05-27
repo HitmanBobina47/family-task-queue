@@ -1,4 +1,4 @@
-import .db
+from .db import *
 import .task
 import .user
 
