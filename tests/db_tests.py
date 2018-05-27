@@ -31,4 +31,4 @@ class Test_DB():
             assert len(db.user.User.query.all()) == 0
             db.user.create_user("fatsomcgatso")
             assert len(db.user.User.query.all()) == 1
-            assert db.user.User.query.first().name == "fatsomcgatso"
+            assert db.user.User.query.first().username == "fatsomcgatso"
