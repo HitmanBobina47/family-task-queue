@@ -23,4 +23,4 @@ class Test_DB():
             assert len(db.user.Family.query.all()) == 0
             db.user.create_family("This Is A Test")
             assert len(db.user.Family.query.all()) == 1
-            assert db.user.User.query.first().name == "This Is A Test"
+            assert db.user.Family.query.first().name == "This Is A Test"
