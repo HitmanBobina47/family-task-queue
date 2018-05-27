@@ -1,6 +1,7 @@
 from family_task_queue import db
 from flask import Flask
 from passlib.hash import pbkdf2_sha256
+from datetime import datetime
 import tempfile, os
 
 def create_user_impl(family="Mongowski"):
@@ -87,3 +88,13 @@ class Test_DB():
             assert db.user.get_user("fatsomcgatso").username == "fatsomcgatso"
             assert db.user.get_user(db.user.User.query.first()).username == "fatsomcgatso"
 
+
+    def test_create_task(self):
+        with self.app.app_context():
+            db.user.create_family("Mongowski")
+            create_user_impl(family="Mongowski")
+            db.task.create_task("Take out the trash", "Mongowski", "fatsomcgatso", incentives=[], time_limit=datetime.now())
+            assert db.task.Task.query.get(1).name == "Take out the trash"
+            assert db.task.Task.query.get(1).family.name == "Mongowski"
+            assert db.task.Task.query.get(1).author.username == "fatsomcgatso"
+            assert len(db.task.Task.query.get(1).incentives) == 0
