@@ -31,7 +31,7 @@ class Test_DB():
         with self.app.app_context():
             db.user.create_family("Mongowski")
             assert len(db.user.User.query.all()) == 0
-            db.user.create_user("fatsomcgatso", "password", "ex@amp.le", family_id=0)
+            db.user.create_user("fatsomcgatso", "password", "ex@amp.le", family_id=1)
             assert len(db.user.User.query.all()) == 1
             first = db.user.User.query.first()
             assert first.username == "fatsomcgatso"
