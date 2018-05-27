@@ -17,6 +17,14 @@ class Family(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
 
+def get_family(arg):
+    if isinstance(arg, int):
+        return Family.query.get(arg)
+    elif isinstance(arg, Family):
+        return arg
+    elif isinstance(arg, str):
+        return Family.query.filter_by(name=arg).first()
+
 def create_family(name):
     new_family = Family(name=name)
     add_item(new_family)
