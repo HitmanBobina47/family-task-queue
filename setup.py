@@ -10,7 +10,7 @@ with open(path.join(here, "requirements.txt"), encoding="utf-8") as f:
     dependencies = f.read().split("\n")
 
 setup(
-    name="family-task-queue",
+    name="family_task_queue",
     version="0.1.0a0",
     description="A webserver to give tasks to your family and optionally give incentives for completing them.",
     long_description=long_description,
