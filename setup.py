@@ -6,6 +6,8 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open(path.join(here, "requirements.txt"), encoding="utf-8") as f:
+    dependencies = f.read().split("\n")
 
 setup(
     name="family-task-queue",
@@ -26,9 +28,7 @@ setup(
     ],
     keywords="",
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
-    install_requires=[
-        "flask"
-    ],
+    install_requires=dependencies,
     project_urls={
         "Bug Reports": "https://github.com/HitmanBobina47/family-task-queue/issues",
         "Funding": "https://paypal.me/hitmanbobina47",
