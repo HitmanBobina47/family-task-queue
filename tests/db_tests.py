@@ -40,7 +40,7 @@ class Test_DB():
             assert first.family_id == 1
             assert first.family.name == "Mongowski"
 
-    def test_create_user_family_id(self):
+    def test_create_user_family(self):
         with self.app.app_context():
             db.user.create_family("Mongowski")
             assert len(db.user.User.query.all()) == 0
