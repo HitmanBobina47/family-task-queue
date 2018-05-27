@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, add_item
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -15,4 +15,5 @@ class Family(db.Model):
     name = db.Column(db.String(80), nullable=False)
 
 def create_family(name):
-    pass
+    new_family = Family(name=name)
+    add_item(new_family)
