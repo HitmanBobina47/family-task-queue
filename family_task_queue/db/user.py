@@ -20,8 +20,7 @@ def create_family(name):
     add_item(new_family)
 
 def create_user(username, password, email, family=None, family_id=None):
-    if family is not None:
-        new_user = User(username=username, password=pbkdf2_sha256.hash(password), email=email, family=family, roles={})
-    elif family_id is not None:
-        new_user = User(username=username, password=pbkdf2_sha256.hash(password), email=email, family=db.user.Family.query.get(family_id), roles={})
+    if family_id is not None:
+        family = db.user.Family.query.get(family_id)
+    new_user = User(username=username, password=pbkdf2_sha256.hash(password), email=email, family=family, roles={})
     add_item(new_user)
