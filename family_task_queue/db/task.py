@@ -1,4 +1,6 @@
 from .db import db
+from . import user
+from datetime import datetime, timedelta
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,6 +12,11 @@ class Task(db.Model):
     incentives = db.Column(db.PickleType(), nullable=False)
     time_limit = db.Column(db.DateTime(), nullable=False)
 
-def create_task(name, family, author, incentives=None, time_limit=None):
-    pass
-
+def create_task(name, family, author, incentives=[], time_limit=datetime.now() + timedelta(seconds=86400)):
+    new_task = Task(
+        name=name,
+        family=user.get_family(family),
+        author=user.get_user(author),
+        incentives=incentives,
+        time_limit=time_limit
+    )
