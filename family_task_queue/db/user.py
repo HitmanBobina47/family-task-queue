@@ -18,6 +18,5 @@ def create_family(name):
     new_family = Family(name=name)
     add_item(new_family)
 
-def create_user(username):
-    new_user = User(username=username, password="", email="", family_id=0, roles={})
-    add_item(new_user)
+def create_user(username, password, email, family_id):
+    pass
