@@ -1,4 +1,4 @@
-import .db.db as db
+import db.db as db
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
