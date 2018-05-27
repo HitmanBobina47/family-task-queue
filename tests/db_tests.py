@@ -17,3 +17,9 @@ class Test_DB():
 
     def teardown(self):
         db.db.drop_all()
+
+    def test_create_family(self):
+        assert len(db.user.User.query.all()) == 0
+        db.user.create_family("This Is A Test")
+        assert len(db.user.User.query.all()) == 1
+        assert db.user.User.query.first().name == "This Is A Test"
