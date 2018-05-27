@@ -84,5 +84,6 @@ class Test_DB():
             db.user.create_family("Mongowski")
             create_user_impl(family="Mongowski")
             assert db.user.get_user(1).username == "fatsomcgatso"
+            assert db.user.get_user("fatsomcgatso").username == "fatsomcgatso"
             assert db.user.get_user(db.user.User.query.first()).username == "fatsomcgatso"
 

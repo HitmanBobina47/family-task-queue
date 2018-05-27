@@ -30,6 +30,8 @@ def get_user(arg):
         return User.query.get(arg)
     elif isinstance(arg, User):
         return arg
+    elif isinstance(arg, str):
+        return User.query.filter_by(username=arg).first()
 
 def create_family(name):
     new_family = Family(name=name)
