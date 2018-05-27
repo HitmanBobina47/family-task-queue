@@ -13,6 +13,15 @@ def create_user_impl(**kwargs):
         **kwargs
     )
 
+def assert_user_impl(family_name):
+    first = db.user.User.query.first()
+    assert first.username == "fatsomcgatso"
+    assert pbkdf2_sha256.verify("password", first.password)
+    assert first.email == "ex@amp.le"
+    assert first.family.name == family_name
+    assert first.first_name == "Fatso"
+    assert first.last_name == "McGatso"
+
 class Test_DB():
     def __init__(self):
         app = None
@@ -43,11 +52,7 @@ class Test_DB():
             starting_len = len(db.user.User.query.all())
             create_user_impl(family_id=1)
             assert len(db.user.User.query.all()) == starting_len + 1
-            first = db.user.User.query.first()
-            assert first.username == "fatsomcgatso"
-            assert pbkdf2_sha256.verify("password", first.password)
-            assert first.email == "ex@amp.le"
-            assert first.family.name == "Mongowski"
+            assert_user_impl("Mongowski")
 
     def test_create_user_family(self):
         with self.app.app_context():
@@ -55,8 +60,4 @@ class Test_DB():
             starting_len = len(db.user.User.query.all())
             create_user_impl(family=db.user.Family.query.filter_by(name="Mongowski").first())
             assert len(db.user.User.query.all()) == starting_len + 1
-            first = db.user.User.query.first()
-            assert first.username == "fatsomcgatso"
-            assert pbkdf2_sha256.verify("password", first.password)
-            assert first.email == "ex@amp.le"
-            assert first.family.name == "Mongowski"
+            assert_user_impl("Mongowski")
