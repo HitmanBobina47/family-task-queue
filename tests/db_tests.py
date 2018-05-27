@@ -13,7 +13,7 @@ def create_user_impl(**kwargs):
         **kwargs
     )
 
-def assert_user_impl(family_name):
+def create_user_assert(family_name):
     first = db.user.User.query.first()
     assert first.username == "fatsomcgatso"
     assert pbkdf2_sha256.verify("password", first.password)
@@ -52,7 +52,7 @@ class Test_DB():
             starting_len = len(db.user.User.query.all())
             create_user_impl(family_id=1)
             assert len(db.user.User.query.all()) == starting_len + 1
-            assert_user_impl("Mongowski")
+            create_user_assert("Mongowski")
 
     def test_create_user_family(self):
         with self.app.app_context():
@@ -60,4 +60,4 @@ class Test_DB():
             starting_len = len(db.user.User.query.all())
             create_user_impl(family=db.user.Family.query.filter_by(name="Mongowski").first())
             assert len(db.user.User.query.all()) == starting_len + 1
-            assert_user_impl("Mongowski")
+            create_user_assert("Mongowski")
