@@ -29,9 +29,8 @@ def create_family(name):
     new_family = Family(name=name)
     add_item(new_family)
 
-def create_user(username, password, email, family=None, family_id=None, first_name=None, last_name=None):
-    if not family_id is None:
-        family = Family.query.get(family_id)
+def create_user(username, password, email, family=None, first_name=None, last_name=None):
+    family = get_family(family)
     new_user = User(
         username=username,
         password=pbkdf2_sha256.hash(password),

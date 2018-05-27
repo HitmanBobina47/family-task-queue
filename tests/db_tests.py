@@ -3,14 +3,14 @@ from flask import Flask
 from passlib.hash import pbkdf2_sha256
 import tempfile, os
 
-def create_user_impl(**kwargs):
+def create_user_impl(family="Mongowski"):
     db.user.create_user(
         "fatsomcgatso",
         "password",
         "ex@amp.le",
         first_name="Fatso",
         last_name="McGatso",
-        **kwargs
+        family=family
     )
 
 def create_user_assert(family_name):
@@ -59,7 +59,7 @@ class Test_DB():
         with self.app.app_context():
             db.user.create_family("Mongowski")
             starting_len = len(db.user.User.query.all())
-            create_user_impl(family_id=1)
+            create_user_impl(family=1)
             assert len(db.user.User.query.all()) == starting_len + 1
             create_user_assert("Mongowski")
 
@@ -70,3 +70,12 @@ class Test_DB():
             create_user_impl(family=db.user.Family.query.filter_by(name="Mongowski").first())
             assert len(db.user.User.query.all()) == starting_len + 1
             create_user_assert("Mongowski")
+
+    def test_create_user_family_name(self):
+        with self.app.app_context():
+            db.user.create_family("Mongowski")
+            starting_len = len(db.user.User.query.all())
+            create_user_impl(family="Mongowski")
+            assert len(db.user.User.query.all()) == starting_len + 1
+            create_user_assert("Mongowski")
+
