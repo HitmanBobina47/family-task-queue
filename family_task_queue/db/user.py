@@ -1,4 +1,5 @@
 from .db import db, add_item
+from . import user
 from passlib.hash import pbkdf2_sha256
 
 class User(db.Model):
@@ -21,6 +22,6 @@ def create_family(name):
 
 def create_user(username, password, email, family=None, family_id=None):
     if family_id is not None:
-        family = db.user.Family.query.get(family_id)
+        family = user.Family.query.get(family_id)
     new_user = User(username=username, password=pbkdf2_sha256.hash(password), email=email, family=family, roles={})
     add_item(new_user)
