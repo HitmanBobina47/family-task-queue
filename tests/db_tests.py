@@ -10,6 +10,7 @@ class Test_DB():
         self.app = Flask(__name__)
         db_path = os.path.join(tempfile.gettempdir(), "test.db")
         self.app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+        self.app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         self.app.config["TESTING"] = True
         db.init_app(self.app)
         db.db.drop_all(app=self.app)
