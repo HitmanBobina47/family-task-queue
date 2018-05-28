@@ -25,7 +25,7 @@ def create_user_assert(family_name):
 
 class Test_DB():
     def __init__(self):
-        app = None
+        self.app = None
 
     def setup(self):
         self.app = Flask(__name__)
