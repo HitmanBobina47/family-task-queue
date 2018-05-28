@@ -10,7 +10,7 @@ def init_app(app):
 
 @login_manager.user_loader
 def load_user(user_id):
-    pass
+    return get_user(user_id)
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():

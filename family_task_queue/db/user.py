@@ -1,7 +1,8 @@
 from .db import db, add_item
 from passlib.hash import pbkdf2_sha256
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(100), nullable=False)
