@@ -1,18 +1,10 @@
 from family_task_queue import db
-from flask import Flask
 from passlib.hash import pbkdf2_sha256
 from datetime import datetime
-import tempfile, os
+from common import create_app, create_user_and_family
 
 def create_user_impl(family="Mongowski"):
-    db.user.create_user(
-        "fatsomcgatso",
-        "password",
-        "ex@amp.le",
-        first_name="Fatso",
-        last_name="McGatso",
-        family=family
-    )
+    create_user_and_family(family=family)
 
 def create_user_assert(family_name):
     first = db.user.User.query.first()
@@ -28,17 +20,10 @@ class Test_DB():
         self.app = None
 
     def setup(self):
-        self.app = Flask(__name__)
-        db_path = os.path.join(tempfile.gettempdir(), "test.db")
-        self.app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
-        self.app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-        self.app.config["TESTING"] = True
-        db.init_app(self.app)
-        db.db.drop_all(app=self.app)
-        db.db.create_all(app=self.app)
+        self.app = create_app()
 
     def teardown(self):
-        db.db.drop_all(app=self.app)
+        pass
 
     def test_create_family(self):
         with self.app.app_context():
